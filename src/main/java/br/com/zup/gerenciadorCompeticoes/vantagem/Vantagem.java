@@ -10,7 +10,6 @@ import javax.persistence.Table;
 public class Vantagem {
 
     @Id
-    @Column(nullable = false)
     private String beneficio;
     @Column(nullable = false)
     private double pontos;
