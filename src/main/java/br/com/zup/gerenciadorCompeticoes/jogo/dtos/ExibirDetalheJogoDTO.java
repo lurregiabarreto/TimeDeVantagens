@@ -8,15 +8,24 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class CadastroJogoDTO {
+public class ExibirDetalheJogoDTO {
 
+    private int id;
     private Time time1;
     private Time time2;
     private EnderecoDTO endereco;
     private LocalDateTime dataDoJogo;
     private List<VantagemDTO> vantagens;
 
-    public CadastroJogoDTO() {
+    public ExibirDetalheJogoDTO() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Time getTime1() {
@@ -58,4 +67,5 @@ public class CadastroJogoDTO {
     public void setVantagens(List<VantagemDTO> vantagens) {
         this.vantagens = vantagens;
     }
+
 }
