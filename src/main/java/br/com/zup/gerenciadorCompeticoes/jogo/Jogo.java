@@ -2,9 +2,11 @@ package br.com.zup.gerenciadorCompeticoes.jogo;
 
 import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
+import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "jogos")
@@ -17,12 +19,12 @@ public class Jogo {
     private Time time1;
     @Column(nullable = false)
     private Time time2;
-    @Column(nullable = false)
+    @OneToOne
     private Endereco endereco;
     @Column(nullable = false)
     private LocalDateTime dataDoJogo;
     private LocalDateTime dataDeCadastro;
-    @Column(nullable = false)
+    @OneToMany
     private List<Vantagem> vantagens;
 
     public Jogo() {
