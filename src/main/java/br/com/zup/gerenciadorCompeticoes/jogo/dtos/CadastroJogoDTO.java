@@ -1,9 +1,9 @@
 package br.com.zup.gerenciadorCompeticoes.jogo.dtos;
 
-import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.endereco.dtos.EnderecoDTO;
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
 import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +13,7 @@ public class CadastroJogoDTO {
     private Time time1;
     private Time time2;
     private EnderecoDTO endereco;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDoJogo;
     private List<VantagemDTO> vantagens;
 
