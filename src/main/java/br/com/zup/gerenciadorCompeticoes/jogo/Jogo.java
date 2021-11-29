@@ -24,7 +24,7 @@ public class Jogo {
     @Column(nullable = false)
     private LocalDateTime dataDoJogo;
     private LocalDateTime dataDeCadastro;
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<Vantagem> vantagens;
 
     public Jogo() {
