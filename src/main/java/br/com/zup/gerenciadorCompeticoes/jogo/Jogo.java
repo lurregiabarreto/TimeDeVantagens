@@ -19,12 +19,12 @@ public class Jogo {
     private Time time1;
     @Column(nullable = false)
     private Time time2;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Endereco endereco;
     @Column(nullable = false)
     private LocalDateTime dataDoJogo;
     private LocalDateTime dataDeCadastro;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<Vantagem> vantagens;
 
     public Jogo() {
