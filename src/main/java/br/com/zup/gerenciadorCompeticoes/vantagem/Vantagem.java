@@ -12,7 +12,7 @@ public class Vantagem {
     @Id
     private String beneficio;
     @Column(nullable = false)
-    private double pontos;
+    private int pontos;
 
     public Vantagem() {
     }
@@ -25,13 +25,12 @@ public class Vantagem {
         this.beneficio = beneficio;
     }
 
-    public double getPontos() {
+    public int getPontos() {
         return pontos;
     }
 
-    public void setPontos(double pontos) {
+    public void setPontos(int pontos) {
         this.pontos = pontos;
     }
-
 }
 
