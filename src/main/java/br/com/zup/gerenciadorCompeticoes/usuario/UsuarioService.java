@@ -9,4 +9,10 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+
+    public Usuario salvarUsuario(Usuario usuarioRecebido){
+        usuarioRecebido.setPontos(0);
+        return usuarioRepository.save(usuarioRecebido);
+    }
+
 }
