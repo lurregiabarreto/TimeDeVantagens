@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/usuario")
@@ -24,7 +25,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExibirUsuarioDTO cadastrarUsuario(@RequestBody CadastroUsuarioDTO cadastroRecebido) {
+    public ExibirUsuarioDTO cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO cadastroRecebido) {
         Usuario usuario = usuarioService.salvarUsuario(modelMapper.map(cadastroRecebido, Usuario.class));
 
         return modelMapper.map(usuario, ExibirUsuarioDTO.class);
