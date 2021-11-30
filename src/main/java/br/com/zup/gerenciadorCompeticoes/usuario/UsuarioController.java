@@ -38,6 +38,13 @@ public class UsuarioController {
             ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
             listaDeJogos.add(exibirDetalheJogoDTO);
         }
+
         return listaDeJogos;
     }
+
+    @GetMapping("/{id}")
+    public Jogo exibirCadastroPorId(@PathVariable int id){
+        return usuarioService.pesquisarUsuarioPorID(id);
+    }
+
 }
