@@ -2,9 +2,16 @@ package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class CadastroUsuarioDTO {
 
+    @Email
     private String email;
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, message = "O nome deve conter no minimo 3 caracteres")
     private String nomeUsuario;
     private Time timeCoracao;
 
