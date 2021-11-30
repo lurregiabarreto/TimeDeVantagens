@@ -5,17 +5,23 @@ import br.com.zup.gerenciadorCompeticoes.enuns.Time;
 import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 public class CadastroJogoDTO {
 
+    @NotNull(message = "Time é obrigatório")
     private Time time1;
+    @NotNull(message = "Time é obrigatório")
     private Time time2;
+    @Valid
     private EnderecoDTO endereco;
+    @NotNull(message = "A data do jogo é obrigatória")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDoJogo;
+    @Valid
     private Set<VantagemDTO> vantagens;
 
     public CadastroJogoDTO() {
