@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class JogoService {
@@ -17,14 +17,14 @@ public class JogoService {
     @Autowired
     VantagemRepository vantagemRepository;
 
-    public Jogo salvarJogo(Jogo jogoRecebido){
+    public Jogo salvarJogo(Jogo jogoRecebido) {
         jogoRecebido.setDataDeCadastro(LocalDateTime.now());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         return jogoRepository.save(jogoRecebido);
     }
 
-    public List<Vantagem> atualizarVantagens(List<Vantagem> vantagensCadastradas) {
-        List<Vantagem> vantagensAtualizada = new ArrayList<>();
+    public Set<Vantagem> atualizarVantagens(Set<Vantagem> vantagensCadastradas) {
+        Set<Vantagem> vantagensAtualizada = new HashSet<>();
 
         for (Vantagem referencia : vantagensCadastradas) {
             if (vantagemRepository.existsById(referencia.getBeneficio())) {

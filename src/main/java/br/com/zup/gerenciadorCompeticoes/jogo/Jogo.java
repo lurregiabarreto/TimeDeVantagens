@@ -6,7 +6,7 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "jogos")
@@ -19,13 +19,13 @@ public class Jogo {
     private Time time1;
     @Column(nullable = false)
     private Time time2;
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Endereco endereco;
     @Column(nullable = false)
     private LocalDateTime dataDoJogo;
     private LocalDateTime dataDeCadastro;
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Vantagem> vantagens;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Vantagem> vantagens;
 
     public Jogo() {
     }
@@ -78,11 +78,12 @@ public class Jogo {
         this.dataDeCadastro = dataDeCadastro;
     }
 
-    public List<Vantagem> getVantagens() {
+    public Set<Vantagem> getVantagens() {
         return vantagens;
     }
 
-    public void setVantagens(List<Vantagem> vantagens) {
+    public void setVantagens(Set<Vantagem> vantagens) {
         this.vantagens = vantagens;
     }
+
 }
