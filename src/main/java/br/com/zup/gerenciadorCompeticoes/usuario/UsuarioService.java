@@ -58,6 +58,17 @@ public class UsuarioService {
         return usuarioAtualizado;
     }
 
+    public Usuario buscarUsuarioId(String email) {
+        Optional<Usuario>usuarioBuscar = usuarioRepository.findById(email);
+        if(usuarioBuscar.isEmpty()){
+            throw new UsuarioNEncontrado( "Este usuário não foi encontrado");
+        }
+        return usuarioBuscar.get();
+    }
+
+
+
+
 
 
 }
