@@ -1,9 +1,11 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
+import br.com.zup.gerenciadorCompeticoes.exceptions.IdInvalid;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
 import br.com.zup.gerenciadorCompeticoes.jogo.dtos.ExibirDetalheJogoDTO;
 import br.com.zup.gerenciadorCompeticoes.usuario.dtos.CadastroUsuarioDTO;
+import br.com.zup.gerenciadorCompeticoes.usuario.dtos.CheckinUsuarioDTO;
 import br.com.zup.gerenciadorCompeticoes.usuario.dtos.ExibirUsuarioDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class UsuarioController {
     UsuarioService usuarioService;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    JogoService jogoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -43,8 +47,18 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Jogo exibirCadastroPorId(@PathVariable int id){
+    public Jogo exibirCadastroPorId(@PathVariable int id) {
         return usuarioService.pesquisarUsuarioPorID(id);
     }
 
+    @PutMapping
+    public ExibirUsuarioDTO checkin (@RequestBody CheckinUsuarioDTO atualizarJogo) {
+        Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(),atualizarJogo.getId());
+
+        return modelMapper.map(usuarioAtualizado,ExibirUsuarioDTO.class);
+
+
+    }
 }
+
+
