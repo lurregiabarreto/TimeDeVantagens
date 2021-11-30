@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/adm")
 public class JogoController {
@@ -18,7 +20,7 @@ public class JogoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExibirDetalheJogoDTO cadastrarJogo(@RequestBody CadastroJogoDTO cadastroRecebido){
+    public ExibirDetalheJogoDTO cadastrarJogo(@RequestBody @Valid CadastroJogoDTO cadastroRecebido){
         Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido,Jogo.class));
 
         return modelMapper.map(jogo,ExibirDetalheJogoDTO.class);
