@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class CadastroJogoDTO {
 
@@ -15,7 +16,7 @@ public class CadastroJogoDTO {
     private EnderecoDTO endereco;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDoJogo;
-    private List<VantagemDTO> vantagens;
+    private Set<VantagemDTO> vantagens;
 
     public CadastroJogoDTO() {
     }
@@ -52,11 +53,11 @@ public class CadastroJogoDTO {
         this.dataDoJogo = dataDoJogo;
     }
 
-    public List<VantagemDTO> getVantagens() {
+    public Set<VantagemDTO> getVantagens() {
         return vantagens;
     }
 
-    public void setVantagens(List<VantagemDTO> vantagens) {
+    public void setVantagens(Set<VantagemDTO> vantagens) {
         this.vantagens = vantagens;
     }
 }
