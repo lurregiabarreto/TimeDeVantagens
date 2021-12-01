@@ -24,8 +24,10 @@ public class CadastroJogoDTO {
     @Valid
     private Set<VantagemDTO> vantagens;
 
+
     public CadastroJogoDTO() {
     }
+
 
     public Time getTime1() {
         return time1;
@@ -66,4 +68,5 @@ public class CadastroJogoDTO {
     public void setVantagens(Set<VantagemDTO> vantagens) {
         this.vantagens = vantagens;
     }
+
 }

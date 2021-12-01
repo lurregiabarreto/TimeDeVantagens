@@ -27,8 +27,10 @@ public class Jogo {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Vantagem> vantagens;
 
+
     public Jogo() {
     }
+
 
     public int getId() {
         return id;
