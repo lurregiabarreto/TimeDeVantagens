@@ -1,7 +1,7 @@
 package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
-import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
+import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class ExibirUsuarioDetalhadoDTO {
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
-    private List<Vantagem> vantagensAdquiridas;
+    private List<VantagemDTO> vantagensAdquiridas;
 
     public ExibirUsuarioDetalhadoDTO() {
     }
@@ -48,11 +48,11 @@ public class ExibirUsuarioDetalhadoDTO {
         this.pontos = pontos;
     }
 
-    public List<Vantagem> getVantagensAdquiridas() {
+    public List<VantagemDTO> getVantagensAdquiridas() {
         return vantagensAdquiridas;
     }
 
-    public void setVantagensAdquiridas(List<Vantagem> vantagensAdquiridas) {
+    public void setVantagensAdquiridas(List<VantagemDTO> vantagensAdquiridas) {
         this.vantagensAdquiridas = vantagensAdquiridas;
     }
 
