@@ -1,12 +1,10 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
-import br.com.zup.gerenciadorCompeticoes.exceptions.IdInvalid;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
-import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
 import br.com.zup.gerenciadorCompeticoes.jogo.dtos.ExibirDetalheJogoDTO;
-import br.com.zup.gerenciadorCompeticoes.usuario.dtos.CadastroUsuarioDTO;
-import br.com.zup.gerenciadorCompeticoes.usuario.dtos.CheckinUsuarioDTO;
-import br.com.zup.gerenciadorCompeticoes.usuario.dtos.ExibirUsuarioDTO;
+import br.com.zup.gerenciadorCompeticoes.usuario.dtos.*;
+import br.com.zup.gerenciadorCompeticoes.usuario.dtos.ExibirTrocaVantagemUsuarioDTO;
+import br.com.zup.gerenciadorCompeticoes.usuario.dtos.TrocaVantagemUsuarioDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,22 +22,20 @@ public class UsuarioController {
     UsuarioService usuarioService;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    JogoService jogoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExibirUsuarioDTO cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO cadastroRecebido) {
+    public ExibirUsuarioCadastroDTO cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO cadastroRecebido) {
         Usuario usuario = usuarioService.salvarUsuario(modelMapper.map(cadastroRecebido, Usuario.class));
 
-        return modelMapper.map(usuario, ExibirUsuarioDTO.class);
+        return modelMapper.map(usuario, ExibirUsuarioCadastroDTO.class);
     }
 
     @GetMapping
     public List<ExibirDetalheJogoDTO> exibirJogos() {
         List<ExibirDetalheJogoDTO> listaDeJogos = new ArrayList<>();
 
-        for (Jogo jogo : usuarioService.exibirTodosJogos()) {
+        for(Jogo jogo : usuarioService.exibirTodosJogos()) {
             ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
             listaDeJogos.add(exibirDetalheJogoDTO);
         }
@@ -49,17 +45,22 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public Jogo exibirCadastroPorId(@PathVariable int id) {
-        return usuarioService.pesquisarUsuarioPorID(id);
+        return usuarioService.pesquisarJogoPorID(id);
     }
 
     @PutMapping
-    public ExibirUsuarioDTO checkin (@RequestBody CheckinUsuarioDTO atualizarJogo) {
+    public ExibirUsuarioCadastroDTO checkin (@RequestBody CheckinUsuarioDTO atualizarJogo) {
         Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(),atualizarJogo.getId());
 
-        return modelMapper.map(usuarioAtualizado,ExibirUsuarioDTO.class);
-
-
+        return modelMapper.map(usuarioAtualizado, ExibirUsuarioCadastroDTO.class);
     }
+
+    @PutMapping("/{id}")
+    public ExibirTrocaVantagemUsuarioDTO realizarTrocaVantagens(@PathVariable int id, @RequestBody TrocaVantagemUsuarioDTO trocaSolicitada){
+        Usuario usuario = usuarioService.atualizarTrocaVantagens(id, trocaSolicitada.getEmail(), trocaSolicitada.getVantagem());
+        return modelMapper.map(usuario, ExibirTrocaVantagemUsuarioDTO.class);
+    }
+
 }
 
 

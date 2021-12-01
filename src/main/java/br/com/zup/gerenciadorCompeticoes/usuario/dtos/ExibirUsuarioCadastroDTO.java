@@ -2,14 +2,14 @@ package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
 
-public class ExibirUsuarioDTO {
+public class ExibirUsuarioCadastroDTO {
 
     private String email;
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
 
-    public ExibirUsuarioDTO() {
+    public ExibirUsuarioCadastroDTO() {
     }
 
     public String getEmail() {

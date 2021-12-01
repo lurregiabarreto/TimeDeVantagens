@@ -1,25 +1,19 @@
-package br.com.zup.gerenciadorCompeticoes.usuario;
+package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
-import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
+import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
+public class ExibirUsuarioDetalhadoDTO {
 
-    @Id
     private String email;
-    @Column(nullable = false)
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Vantagem> vantagensAdquiridas;
+    private List<VantagemDTO> vantagensAdquiridas;
 
-    public Usuario() {
+    public ExibirUsuarioDetalhadoDTO() {
     }
 
     public String getEmail() {
@@ -54,11 +48,11 @@ public class Usuario {
         this.pontos = pontos;
     }
 
-    public List<Vantagem> getVantagensAdquiridas() {
+    public List<VantagemDTO> getVantagensAdquiridas() {
         return vantagensAdquiridas;
     }
 
-    public void setVantagensAdquiridas(List<Vantagem> vantagensAdquiridas) {
+    public void setVantagensAdquiridas(List<VantagemDTO> vantagensAdquiridas) {
         this.vantagensAdquiridas = vantagensAdquiridas;
     }
 

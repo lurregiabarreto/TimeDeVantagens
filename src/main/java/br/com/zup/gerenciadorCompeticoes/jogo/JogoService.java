@@ -1,5 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.jogo;
 
+import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import br.com.zup.gerenciadorCompeticoes.vantagem.VantagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class JogoService {
     VantagemRepository vantagemRepository;
 
     public Jogo salvarJogo(Jogo jogoRecebido) {
+        verificarData(jogoRecebido);
         jogoRecebido.setDataDeCadastro(LocalDateTime.now());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         return jogoRepository.save(jogoRecebido);
@@ -35,6 +37,13 @@ public class JogoService {
         }
 
         return vantagensAtualizada;
+    }
+
+    public void verificarData(Jogo jogo){
+        LocalDateTime dataAtual = LocalDateTime.now();
+        if (jogo.getDataDoJogo().isBefore(dataAtual)){
+            throw new DataPosteriorException("Data atual posterior a data do jogo");
+        }
     }
 
 }
