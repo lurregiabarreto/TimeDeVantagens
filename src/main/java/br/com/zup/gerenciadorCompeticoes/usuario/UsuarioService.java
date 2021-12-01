@@ -4,6 +4,8 @@ import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNEncontrado;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
+import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
+import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class UsuarioService {
     UsuarioRepository usuarioRepository;
     @Autowired
     JogoRepository jogoRepository;
+    @Autowired
+    JogoService jogoService;
 
 
     public Usuario salvarUsuario(Usuario usuarioRecebido) {
@@ -42,6 +46,7 @@ public class UsuarioService {
 
     public Usuario checkinUsuario(String email, int id) {
         Jogo jogo = pesquisarJogoPorID(id);
+        jogoService.verificarData(jogo);
         var pontosCheckin = 5;
 
         Usuario usuarioAtualizado = buscarUsuarioId(email);
@@ -58,6 +63,21 @@ public class UsuarioService {
         }
 
         return usuarioBuscar.get();
+    }
+
+    public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem) {
+        Jogo jogo = pesquisarJogoPorID(id);
+        Usuario usuario = buscarUsuarioId(email);
+        jogoService.verificarData(jogo);
+
+        for (Vantagem referencia : jogo.getVantagens()) {
+            if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
+                referencia.setDataValidade(jogo.getDataDoJogo().plusDays(1));
+                usuario.getVantagensAdquiridas().add(referencia);
+            }
+        }
+
+        return usuario;
     }
 
 }
