@@ -3,7 +3,6 @@ package br.com.zup.gerenciadorCompeticoes.usuario;
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNEncontrado;
-import br.com.zup.gerenciadorCompeticoes.exceptions.VantagemInvalidaException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
@@ -88,6 +87,7 @@ public class UsuarioService {
             }
         }
 
+        usuarioRepository.save(usuario);
         return usuario;
     }
 
