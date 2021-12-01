@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "vantagem")
+@Table(name = "vantagens")
 public class Vantagem {
 
     @Id
@@ -16,6 +16,7 @@ public class Vantagem {
     @Column(nullable = false)
     private int pontos;
     private LocalDateTime dataValidade;
+
 
     public Vantagem() {
     }
@@ -58,4 +59,3 @@ public class Vantagem {
     }
 
 }
-
