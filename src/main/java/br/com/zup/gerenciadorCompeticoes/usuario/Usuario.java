@@ -1,11 +1,10 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
+import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -17,6 +16,8 @@ public class Usuario {
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Vantagem> vantagensAdquiridas;
 
     public Usuario() {
     }
@@ -52,4 +53,13 @@ public class Usuario {
     public void setPontos(int pontos) {
         this.pontos = pontos;
     }
+
+    public List<Vantagem> getVantagensAdquiridas() {
+        return vantagensAdquiridas;
+    }
+
+    public void setVantagensAdquiridas(List<Vantagem> vantagensAdquiridas) {
+        this.vantagensAdquiridas = vantagensAdquiridas;
+    }
+
 }
