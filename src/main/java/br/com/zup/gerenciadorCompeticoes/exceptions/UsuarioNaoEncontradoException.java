@@ -1,7 +1,9 @@
 package br.com.zup.gerenciadorCompeticoes.exceptions;
 
-public class UsuarioNEncontrado extends RuntimeException {
-    public UsuarioNEncontrado(String message) {
+public class UsuarioNaoEncontradoException extends RuntimeException {
+
+    public UsuarioNaoEncontradoException(String message) {
         super(message);
     }
+
 }
