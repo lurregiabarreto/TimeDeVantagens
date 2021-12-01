@@ -1,7 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
-import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
 import br.com.zup.gerenciadorCompeticoes.jogo.dtos.ExibirDetalheJogoDTO;
 import br.com.zup.gerenciadorCompeticoes.usuario.dtos.*;
 import br.com.zup.gerenciadorCompeticoes.usuario.dtos.ExibirTrocaVantagemUsuarioDTO;
@@ -23,8 +22,6 @@ public class UsuarioController {
     UsuarioService usuarioService;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    JogoService jogoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,7 +35,7 @@ public class UsuarioController {
     public List<ExibirDetalheJogoDTO> exibirJogos() {
         List<ExibirDetalheJogoDTO> listaDeJogos = new ArrayList<>();
 
-        for (Jogo jogo : usuarioService.exibirTodosJogos()) {
+        for(Jogo jogo : usuarioService.exibirTodosJogos()) {
             ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
             listaDeJogos.add(exibirDetalheJogoDTO);
         }
@@ -56,6 +53,12 @@ public class UsuarioController {
         Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(),atualizarJogo.getId());
 
         return modelMapper.map(usuarioAtualizado, ExibirUsuarioCadastroDTO.class);
+    }
+
+    @PutMapping("/{id}")
+    public ExibirTrocaVantagemUsuarioDTO realizarTrocaVantagens(@PathVariable int id, @RequestBody TrocaVantagemUsuarioDTO trocaSolicitada){
+        Usuario usuario = usuarioService.atualizarTrocaVantagens(id, trocaSolicitada.getEmail(), trocaSolicitada.getVantagem());
+        return modelMapper.map(usuario, ExibirTrocaVantagemUsuarioDTO.class);
     }
 
 }
