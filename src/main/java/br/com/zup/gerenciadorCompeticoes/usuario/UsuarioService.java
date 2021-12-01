@@ -10,6 +10,7 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.font.ImageGraphicAttribute;
 import java.util.*;
 
 @Service
@@ -87,6 +88,9 @@ public class UsuarioService {
             if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
                 referencia.setDataValidade(jogo.getDataDoJogo().plusDays(1));
                 usuario.getVantagensAdquiridas().add(referencia);
+                if (usuario.getPontos()>= referencia.getPontos()){
+                usuario.setPontos(usuario.getPontos() - referencia.getPontos());
+                }
             }
         }
 
