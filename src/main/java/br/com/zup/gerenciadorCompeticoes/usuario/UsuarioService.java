@@ -1,7 +1,9 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
+import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNEncontrado;
+import br.com.zup.gerenciadorCompeticoes.exceptions.VantagemInvalidaException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
@@ -23,10 +25,19 @@ public class UsuarioService {
 
 
     public Usuario salvarUsuario(Usuario usuarioRecebido) {
+        verificarEmail(usuarioRecebido.getEmail());
         usuarioRecebido.setPontos(0);
 
         return usuarioRepository.save(usuarioRecebido);
     }
+
+    public void verificarEmail(String email){
+        Optional<Usuario> emailExiste = usuarioRepository.findById(email);
+        if (emailExiste.isPresent()){
+            throw new EmailJaCadastradoException("Email já cadastrado!");
+        }
+    }
+
 
     public List<Jogo> exibirTodosJogos() {
         List<Jogo> jogos = (List<Jogo>) jogoRepository.findAll();
