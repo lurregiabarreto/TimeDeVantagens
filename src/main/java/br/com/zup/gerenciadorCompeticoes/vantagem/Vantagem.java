@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +15,7 @@ public class Vantagem {
     private String beneficio;
     @Column(nullable = false)
     private int pontos;
-    private LocalDate dataValidade;
+    private LocalDateTime dataValidade;
 
     public Vantagem() {
     }
@@ -36,11 +36,11 @@ public class Vantagem {
         this.pontos = pontos;
     }
 
-    public LocalDate getDataValidade() {
+    public LocalDateTime getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(LocalDate dataValidade) {
+    public void setDataValidade(LocalDateTime dataValidade) {
         this.dataValidade = dataValidade;
     }
 
