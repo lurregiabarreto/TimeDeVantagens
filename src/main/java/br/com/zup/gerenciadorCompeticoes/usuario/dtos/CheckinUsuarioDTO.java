@@ -1,11 +1,14 @@
 package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
 public class CheckinUsuarioDTO {
+
     private String email;
     private int id;
 
+
     public CheckinUsuarioDTO() {
     }
+
 
     public String getEmail() {
         return email;
@@ -22,4 +25,5 @@ public class CheckinUsuarioDTO {
     public void setId(int id) {
         this.id = id;
     }
+
 }

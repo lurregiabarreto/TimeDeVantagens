@@ -13,8 +13,10 @@ public class ExibirUsuarioDetalhadoDTO {
     private int pontos;
     private List<VantagemDTO> vantagensAdquiridas;
 
+
     public ExibirUsuarioDetalhadoDTO() {
     }
+
 
     public String getEmail() {
         return email;

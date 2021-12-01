@@ -23,6 +23,7 @@ public class UsuarioController {
     @Autowired
     ModelMapper modelMapper;
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExibirUsuarioCadastroDTO cadastrarUsuario(@RequestBody @Valid CadastroUsuarioDTO cadastroRecebido) {
@@ -35,7 +36,7 @@ public class UsuarioController {
     public List<ExibirDetalheJogoDTO> exibirJogos() {
         List<ExibirDetalheJogoDTO> listaDeJogos = new ArrayList<>();
 
-        for(Jogo jogo : usuarioService.exibirTodosJogos()) {
+        for (Jogo jogo : usuarioService.exibirTodosJogos()) {
             ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
             listaDeJogos.add(exibirDetalheJogoDTO);
         }
@@ -44,23 +45,24 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Jogo exibirCadastroPorId(@PathVariable int id) {
-        return usuarioService.pesquisarJogoPorID(id);
+    public ExibirDetalheJogoDTO exibirJogoPorId(@PathVariable int id) {
+        return modelMapper.map(usuarioService.pesquisarJogoPorID(id), ExibirDetalheJogoDTO.class);
     }
 
     @PutMapping
-    public ExibirUsuarioCadastroDTO checkin (@RequestBody CheckinUsuarioDTO atualizarJogo) {
-        Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(),atualizarJogo.getId());
+    public ExibirUsuarioCadastroDTO checkin(@RequestBody CheckinUsuarioDTO atualizarJogo) {
+        Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(), atualizarJogo.getId());
 
         return modelMapper.map(usuarioAtualizado, ExibirUsuarioCadastroDTO.class);
     }
 
     @PutMapping("/{id}")
-    public ExibirTrocaVantagemUsuarioDTO realizarTrocaVantagens(@PathVariable int id, @RequestBody TrocaVantagemUsuarioDTO trocaSolicitada){
-        Usuario usuario = usuarioService.atualizarTrocaVantagens(id, trocaSolicitada.getEmail(), trocaSolicitada.getVantagem());
+    public ExibirTrocaVantagemUsuarioDTO realizarTrocaVantagens(@PathVariable int id,
+                                                                @RequestBody TrocaVantagemUsuarioDTO trocaSolicitada) {
+        Usuario usuario = usuarioService.atualizarTrocaVantagens(id, trocaSolicitada.getEmail(),
+                trocaSolicitada.getVantagem());
+
         return modelMapper.map(usuario, ExibirTrocaVantagemUsuarioDTO.class);
     }
 
 }
-
-

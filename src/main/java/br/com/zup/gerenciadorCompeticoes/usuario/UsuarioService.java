@@ -2,7 +2,7 @@ package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNEncontrado;
+import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
@@ -30,11 +30,13 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioRecebido);
     }
 
-    public void verificarEmail(String email){
+    public void verificarEmail(String email) {
         Optional<Usuario> emailExiste = usuarioRepository.findById(email);
-        if (emailExiste.isPresent()){
+
+        if (emailExiste.isPresent()) {
             throw new EmailJaCadastradoException("Email já cadastrado!");
         }
+
     }
 
 
@@ -68,8 +70,9 @@ public class UsuarioService {
 
     public Usuario buscarUsuarioId(String email) {
         Optional<Usuario> usuarioBuscar = usuarioRepository.findById(email);
+
         if (usuarioBuscar.isEmpty()) {
-            throw new UsuarioNEncontrado("Este usuário não foi encontrado");
+            throw new UsuarioNaoEncontradoException("Este usuário não foi encontrado");
         }
 
         return usuarioBuscar.get();
@@ -88,6 +91,7 @@ public class UsuarioService {
         }
 
         usuarioRepository.save(usuario);
+
         return usuario;
     }
 

@@ -1,4 +1,5 @@
 package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
+
 import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 
 import java.util.List;
@@ -9,8 +10,10 @@ public class ExibirTrocaVantagemUsuarioDTO {
     private int pontosAtualizado;
     private List<VantagemDTO> vantagensAdquiridas;
 
+
     public ExibirTrocaVantagemUsuarioDTO() {
     }
+
 
     public String getEmail() {
         return email;

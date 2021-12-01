@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
@@ -19,8 +19,10 @@ public class Usuario {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Vantagem> vantagensAdquiridas;
 
+
     public Usuario() {
     }
+
 
     public String getEmail() {
         return email;

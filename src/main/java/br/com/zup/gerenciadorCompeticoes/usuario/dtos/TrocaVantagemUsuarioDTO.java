@@ -8,8 +8,10 @@ public class TrocaVantagemUsuarioDTO {
     private String codigoValidador;
     private Vantagem vantagem;
 
+
     public TrocaVantagemUsuarioDTO() {
     }
+
 
     public String getEmail() {
         return email;
