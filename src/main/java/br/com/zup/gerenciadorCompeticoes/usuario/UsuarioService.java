@@ -2,6 +2,7 @@ package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
+import br.com.zup.gerenciadorCompeticoes.exceptions.PontosInsuficientesException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
@@ -90,6 +91,8 @@ public class UsuarioService {
                 usuario.getVantagensAdquiridas().add(referencia);
                 if (usuario.getPontos()>= referencia.getPontos()){
                 usuario.setPontos(usuario.getPontos() - referencia.getPontos());
+                }else {
+                    throw new PontosInsuficientesException("Pontos insuficientes para troca!");
                 }
             }
         }
