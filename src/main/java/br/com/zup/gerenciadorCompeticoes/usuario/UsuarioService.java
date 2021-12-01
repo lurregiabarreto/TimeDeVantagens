@@ -2,7 +2,8 @@ package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNEncontrado;
+import br.com.zup.gerenciadorCompeticoes.exceptions.PontosInsuficientesException;
+import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
@@ -10,6 +11,7 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.font.ImageGraphicAttribute;
 import java.util.*;
 
 @Service
@@ -30,11 +32,13 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioRecebido);
     }
 
-    public void verificarEmail(String email){
+    public void verificarEmail(String email) {
         Optional<Usuario> emailExiste = usuarioRepository.findById(email);
-        if (emailExiste.isPresent()){
+
+        if (emailExiste.isPresent()) {
             throw new EmailJaCadastradoException("Email já cadastrado!");
         }
+
     }
 
 
@@ -68,8 +72,9 @@ public class UsuarioService {
 
     public Usuario buscarUsuarioId(String email) {
         Optional<Usuario> usuarioBuscar = usuarioRepository.findById(email);
+
         if (usuarioBuscar.isEmpty()) {
-            throw new UsuarioNEncontrado("Este usuário não foi encontrado");
+            throw new UsuarioNaoEncontradoException("Este usuário não foi encontrado");
         }
 
         return usuarioBuscar.get();
@@ -84,10 +89,16 @@ public class UsuarioService {
             if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
                 referencia.setDataValidade(jogo.getDataDoJogo().plusDays(1));
                 usuario.getVantagensAdquiridas().add(referencia);
+                if (usuario.getPontos()>= referencia.getPontos()){
+                usuario.setPontos(usuario.getPontos() - referencia.getPontos());
+                }else {
+                    throw new PontosInsuficientesException("Pontos insuficientes para troca!");
+                }
             }
         }
 
         usuarioRepository.save(usuario);
+
         return usuario;
     }
 

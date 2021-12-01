@@ -15,8 +15,10 @@ public class CadastroUsuarioDTO {
     private String nomeUsuario;
     private Time timeCoracao;
 
+
     public CadastroUsuarioDTO() {
     }
+
 
     public String getEmail() {
         return email;

@@ -9,8 +9,10 @@ public class ExibirUsuarioCadastroDTO {
     private Time timeCoracao;
     private int pontos;
 
+
     public ExibirUsuarioCadastroDTO() {
     }
+
 
     public String getEmail() {
         return email;

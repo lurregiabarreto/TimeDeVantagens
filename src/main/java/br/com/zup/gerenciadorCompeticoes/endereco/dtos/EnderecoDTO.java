@@ -1,9 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.endereco.dtos;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 public class EnderecoDTO {
 
@@ -17,8 +14,10 @@ public class EnderecoDTO {
     @NotBlank(message = "CEP é obrigatório")
     private String cep;
 
+
     public EnderecoDTO() {
     }
+
 
     public String getLogradouro() {
         return logradouro;
@@ -67,4 +66,5 @@ public class EnderecoDTO {
     public void setCep(String cep) {
         this.cep = cep;
     }
+
 }

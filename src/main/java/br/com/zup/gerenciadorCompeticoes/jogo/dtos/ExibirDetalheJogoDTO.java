@@ -6,7 +6,6 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 public class ExibirDetalheJogoDTO {
@@ -19,8 +18,10 @@ public class ExibirDetalheJogoDTO {
     private LocalDateTime dataDoJogo;
     private Set<VantagemDTO> vantagens;
 
+
     public ExibirDetalheJogoDTO() {
     }
+
 
     public int getId() {
         return id;
@@ -69,4 +70,5 @@ public class ExibirDetalheJogoDTO {
     public void setVantagens(Set<VantagemDTO> vantagens) {
         this.vantagens = vantagens;
     }
+
 }

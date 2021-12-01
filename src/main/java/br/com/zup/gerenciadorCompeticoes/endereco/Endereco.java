@@ -3,7 +3,7 @@ package br.com.zup.gerenciadorCompeticoes.endereco;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "enderecos")
 public class Endereco {
 
     @Id
@@ -20,8 +20,10 @@ public class Endereco {
     @Column(nullable = false)
     private String cep;
 
+
     public Endereco() {
     }
+
 
     public Integer getId() {
         return id;

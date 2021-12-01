@@ -18,12 +18,13 @@ public class JogoController {
     @Autowired
     ModelMapper modelMapper;
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExibirDetalheJogoDTO cadastrarJogo(@RequestBody @Valid CadastroJogoDTO cadastroRecebido){
-        Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido,Jogo.class));
+    public ExibirDetalheJogoDTO cadastrarJogo(@RequestBody @Valid CadastroJogoDTO cadastroRecebido) {
+        Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido, Jogo.class));
 
-        return modelMapper.map(jogo,ExibirDetalheJogoDTO.class);
+        return modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
     }
 
 }
