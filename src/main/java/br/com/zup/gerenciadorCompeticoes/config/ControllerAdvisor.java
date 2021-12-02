@@ -1,5 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.config;
 
+import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,5 +25,13 @@ public class ControllerAdvisor {
 
         return errosValidacao;
     }
+
+
+    @ExceptionHandler(CodigoInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro manipularCodigoInvalido(CodigoInvalidoException exception) {
+        return new MensagemErro(exception.getMessage());
+    }
+
 
 }
