@@ -23,7 +23,7 @@ public class Jogo {
     private Endereco endereco;
     @Column(nullable = false)
     private LocalDateTime dataDoJogo;
-    private LocalDateTime dataDeCadastro;
+    private String codigoValidacao;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Vantagem> vantagens;
 
@@ -72,12 +72,12 @@ public class Jogo {
         this.dataDoJogo = dataDoJogo;
     }
 
-    public LocalDateTime getDataDeCadastro() {
-        return dataDeCadastro;
+    public String getCodigoValidacao() {
+        return codigoValidacao;
     }
 
-    public void setDataDeCadastro(LocalDateTime dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
+    public void setCodigoValidacao(String codigoValidacao) {
+        this.codigoValidacao = codigoValidacao;
     }
 
     public Set<Vantagem> getVantagens() {
