@@ -11,7 +11,7 @@ public class ExibirUsuarioDetalhadoDTO {
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
-    private List<VoucherDTO> voucher;
+    private List<VoucherDTO> vouchers;
 
 
     public ExibirUsuarioDetalhadoDTO() {
@@ -50,12 +50,12 @@ public class ExibirUsuarioDetalhadoDTO {
         this.pontos = pontos;
     }
 
-    public List<VoucherDTO> getVoucher() {
-        return voucher;
+    public List<VoucherDTO> getVouchers() {
+        return vouchers;
     }
 
-    public void setVoucher(List<VoucherDTO> voucher) {
-        this.voucher = voucher;
+    public void setVouchers(List<VoucherDTO> vouchers) {
+        this.vouchers = vouchers;
     }
 
 }

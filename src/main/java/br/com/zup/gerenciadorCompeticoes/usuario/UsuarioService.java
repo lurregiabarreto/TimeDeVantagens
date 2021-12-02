@@ -39,13 +39,13 @@ public class UsuarioService {
     }
 
     public Usuario buscarUsuarioId(String email) {
-        Optional<Usuario> usuarioBuscar = usuarioRepository.findById(email);
+        Optional<Usuario> usuario = usuarioRepository.findById(email);
 
-        if (usuarioBuscar.isEmpty()) {
+        if (usuario.isEmpty()) {
             throw new UsuarioNaoEncontradoException("Este usuário não foi encontrado");
         }
 
-        return usuarioBuscar.get();
+        return usuario.get();
     }
 
     public Usuario checkinUsuario(String email, int id,  String codigoValidacao) {
