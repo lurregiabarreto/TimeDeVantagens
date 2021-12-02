@@ -8,7 +8,6 @@ import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import br.com.zup.gerenciadorCompeticoes.vantagem.VantagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,7 +29,7 @@ public class JogoService {
         return jogoRepository.save(jogoRecebido);
     }
 
-    public void atualizarDadosParaSalvar(Jogo jogoRecebido){
+    public void atualizarDadosParaSalvar(Jogo jogoRecebido) {
         verificarData(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
@@ -51,11 +50,11 @@ public class JogoService {
         return vantagensAtualizada;
     }
 
-    public Endereco atualizarEndereco(Endereco enderecoCadastrado){
+    public Endereco atualizarEndereco(Endereco enderecoCadastrado) {
         Endereco endereco = enderecoCadastrado;
 
-        for (Endereco referencia: enderecoRepository.findAll()){
-            if (referencia.getCep().equals(endereco.getCep())){
+        for (Endereco referencia : enderecoRepository.findAll()) {
+            if (referencia.getCep().equals(endereco.getCep())) {
                 endereco = referencia;
             }
         }
@@ -88,7 +87,7 @@ public class JogoService {
         return jogoId.get();
     }
 
-    public Jogo validarJogo(int id, String codigoValidacao){
+    public Jogo validarJogo(int id, String codigoValidacao) {
         Jogo jogo = pesquisarJogoPorID(id);
         verificarData(jogo);
         verificarCodigoJogo(jogo, codigoValidacao);
@@ -96,8 +95,8 @@ public class JogoService {
         return jogo;
     }
 
-    public void verificarCodigoJogo(Jogo jogo, String codigoValidacao){
-        if (!jogo.getCodigoValidacao().equals(codigoValidacao)){
+    public void verificarCodigoJogo(Jogo jogo, String codigoValidacao) {
+        if (!jogo.getCodigoValidacao().equals(codigoValidacao)) {
             throw new CodigoInvalidoException("Código de validação incorreto!");
         }
     }
