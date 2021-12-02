@@ -5,7 +5,7 @@ import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 public class TrocaVantagemUsuarioDTO {
 
     private String email;
-    private String codigoValidador;
+    private String codigoValidacao;
     private Vantagem vantagem;
 
 
@@ -21,12 +21,12 @@ public class TrocaVantagemUsuarioDTO {
         this.email = email;
     }
 
-    public String getCodigoValidador() {
-        return codigoValidador;
+    public String getCodigoValidacao() {
+        return codigoValidacao;
     }
 
-    public void setCodigoValidador(String codigoValidador) {
-        this.codigoValidador = codigoValidador;
+    public void setCodigoValidacao(String codigoValidacao) {
+        this.codigoValidacao = codigoValidacao;
     }
 
     public Vantagem getVantagem() {

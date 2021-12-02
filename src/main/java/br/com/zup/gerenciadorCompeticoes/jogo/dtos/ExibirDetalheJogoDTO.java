@@ -16,6 +16,7 @@ public class ExibirDetalheJogoDTO {
     private EnderecoDTO endereco;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDoJogo;
+    private String codigoValidacao;
     private Set<VantagemDTO> vantagens;
 
 
@@ -61,6 +62,14 @@ public class ExibirDetalheJogoDTO {
 
     public void setDataDoJogo(LocalDateTime dataDoJogo) {
         this.dataDoJogo = dataDoJogo;
+    }
+
+    public String getCodigoValidacao() {
+        return codigoValidacao;
+    }
+
+    public void setCodigoValidacao(String codigoValidacao) {
+        this.codigoValidacao = codigoValidacao;
     }
 
     public Set<VantagemDTO> getVantagens() {

@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping("/adm")
+@RequestMapping("/jogo")
 public class JogoController {
 
     @Autowired
@@ -25,6 +27,23 @@ public class JogoController {
         Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido, Jogo.class));
 
         return modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
+    }
+
+    @GetMapping
+    public List<ExibirDetalheJogoDTO> exibirJogos() {
+        List<ExibirDetalheJogoDTO> listaDeJogos = new ArrayList<>();
+
+        for (Jogo jogo : jogoService.exibirTodosJogos()) {
+            ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
+            listaDeJogos.add(exibirDetalheJogoDTO);
+        }
+
+        return listaDeJogos;
+    }
+
+    @GetMapping("/{id}")
+    public ExibirDetalheJogoDTO exibirJogoPorId(@PathVariable int id) {
+        return modelMapper.map(jogoService.pesquisarJogoPorID(id), ExibirDetalheJogoDTO.class);
     }
 
 }

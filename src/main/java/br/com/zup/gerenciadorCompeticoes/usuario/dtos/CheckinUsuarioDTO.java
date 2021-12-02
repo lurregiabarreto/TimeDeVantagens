@@ -4,6 +4,7 @@ public class CheckinUsuarioDTO {
 
     private String email;
     private int id;
+    private String codigoValidacao;
 
 
     public CheckinUsuarioDTO() {
@@ -24,6 +25,14 @@ public class CheckinUsuarioDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCodigoValidacao() {
+        return codigoValidacao;
+    }
+
+    public void setCodigoValidacao(String codigoValidacao) {
+        this.codigoValidacao = codigoValidacao;
     }
 
 }
