@@ -1,5 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
+import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.PontosInsuficientesException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
@@ -46,9 +47,10 @@ public class UsuarioService {
         return usuarioBuscar.get();
     }
 
-    public Usuario checkinUsuario(String email, int id) {
+    public Usuario checkinUsuario(String email, int id,  String codigoValidacao) {
         Jogo jogo = jogoService.pesquisarJogoPorID(id);
         jogoService.verificarData(jogo);
+        verificarCodigo(jogo, codigoValidacao);
         var pontosCheckin = 5;
 
         Usuario usuarioAtualizado = buscarUsuarioId(email);
@@ -58,10 +60,11 @@ public class UsuarioService {
         return usuarioAtualizado;
     }
 
-    public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem) {
+    public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem, String codigoValidacao) {
         Jogo jogo = jogoService.pesquisarJogoPorID(id);
         Usuario usuario = buscarUsuarioId(email);
         jogoService.verificarData(jogo);
+        verificarCodigo(jogo, codigoValidacao);
 
         for (Vantagem referencia : jogo.getVantagens()) {
             if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
@@ -77,11 +80,18 @@ public class UsuarioService {
                     throw new PontosInsuficientesException("Pontos insuficientes para troca!");
                 }
             }
+
         }
 
         usuarioRepository.save(usuario);
 
         return usuario;
+    }
+
+    public void verificarCodigo(Jogo jogo, String codigoValidacao){
+        if (!jogo.getCodigoValidacao().equals(codigoValidacao)){
+            throw new CodigoInvalidoException("Código de validação incorreto!");
+        }
     }
 
 }
