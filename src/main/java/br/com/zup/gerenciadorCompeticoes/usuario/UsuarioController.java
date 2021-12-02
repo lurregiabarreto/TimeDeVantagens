@@ -28,6 +28,11 @@ public class UsuarioController {
         return modelMapper.map(usuario, ExibirUsuarioCadastroDTO.class);
     }
 
+    @GetMapping("/{email}")
+    public ExibirUsuarioDetalhadoDTO exibirDadosUsuario(@PathVariable String email){
+        return modelMapper.map(usuarioService.buscarUsuarioId(email),ExibirUsuarioDetalhadoDTO.class);
+    }
+
     @PutMapping
     public ExibirUsuarioCadastroDTO checkin(@RequestBody CheckinUsuarioDTO atualizarJogo) {
         Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(), atualizarJogo.getId(),
