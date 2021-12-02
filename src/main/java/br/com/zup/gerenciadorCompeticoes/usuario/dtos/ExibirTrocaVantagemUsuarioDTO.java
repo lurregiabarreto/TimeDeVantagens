@@ -1,6 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.usuario.dtos;
 
-import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
+import br.com.zup.gerenciadorCompeticoes.voucher.dtos.VoucherDTO;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class ExibirTrocaVantagemUsuarioDTO {
 
     private String email;
     private int pontos;
-    private List<VantagemDTO> vantagensAdquiridas;
+    private List<VoucherDTO> vouchers;
 
 
     public ExibirTrocaVantagemUsuarioDTO() {
@@ -31,12 +31,12 @@ public class ExibirTrocaVantagemUsuarioDTO {
         this.pontos = pontos;
     }
 
-    public List<VantagemDTO> getVantagensAdquiridas() {
-        return vantagensAdquiridas;
+    public List<VoucherDTO> getVouchers() {
+        return vouchers;
     }
 
-    public void setVantagensAdquiridas(List<VantagemDTO> vantagensAdquiridas) {
-        this.vantagensAdquiridas = vantagensAdquiridas;
+    public void setVouchers(List<VoucherDTO> vouchers) {
+        this.vouchers = vouchers;
     }
 
 }

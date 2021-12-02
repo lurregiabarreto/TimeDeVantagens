@@ -7,6 +7,7 @@ import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoExceptio
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
+import br.com.zup.gerenciadorCompeticoes.voucher.Voucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,18 +68,17 @@ public class UsuarioService {
         verificarCodigo(jogo, codigoValidacao);
 
         for (Vantagem referencia : jogo.getVantagens()) {
+
             if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
-
-                referencia.setDataValidade(jogo.getDataDoJogo().plusDays(1));
-                usuario.getVantagensAdquiridas().add(referencia);
-
                 if (usuario.getPontos() >= referencia.getPontos()) {
-
                     usuario.setPontos(usuario.getPontos() - referencia.getPontos());
-
+                    Voucher voucher = new Voucher(UUID.randomUUID().toString(),
+                            referencia.getBeneficio(),jogo.getDataDoJogo().plusDays(1));
+                    usuario.getVouchers().add(voucher);
                 } else {
                     throw new PontosInsuficientesException("Pontos insuficientes para troca!");
                 }
+
             }
 
         }
