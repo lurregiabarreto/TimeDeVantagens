@@ -32,23 +32,6 @@ public class UsuarioController {
         return modelMapper.map(usuario, ExibirUsuarioCadastroDTO.class);
     }
 
-    @GetMapping
-    public List<ExibirDetalheJogoDTO> exibirJogos() {
-        List<ExibirDetalheJogoDTO> listaDeJogos = new ArrayList<>();
-
-        for (Jogo jogo : usuarioService.exibirTodosJogos()) {
-            ExibirDetalheJogoDTO exibirDetalheJogoDTO = modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
-            listaDeJogos.add(exibirDetalheJogoDTO);
-        }
-
-        return listaDeJogos;
-    }
-
-    @GetMapping("/{id}")
-    public ExibirDetalheJogoDTO exibirJogoPorId(@PathVariable int id) {
-        return modelMapper.map(usuarioService.pesquisarJogoPorID(id), ExibirDetalheJogoDTO.class);
-    }
-
     @PutMapping
     public ExibirUsuarioCadastroDTO checkin(@RequestBody CheckinUsuarioDTO atualizarJogo) {
         Usuario usuarioAtualizado = usuarioService.checkinUsuario(atualizarJogo.getEmail(), atualizarJogo.getId());

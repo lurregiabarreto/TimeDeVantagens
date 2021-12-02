@@ -1,17 +1,14 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.PontosInsuficientesException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.jogo.Jogo;
-import br.com.zup.gerenciadorCompeticoes.jogo.JogoRepository;
 import br.com.zup.gerenciadorCompeticoes.jogo.JogoService;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.font.ImageGraphicAttribute;
 import java.util.*;
 
 @Service
@@ -19,8 +16,6 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
-    @Autowired
-    JogoRepository jogoRepository;
     @Autowired
     JogoService jogoService;
 
@@ -41,35 +36,6 @@ public class UsuarioService {
 
     }
 
-
-    public List<Jogo> exibirTodosJogos() {
-        List<Jogo> jogos = (List<Jogo>) jogoRepository.findAll();
-
-        return jogos;
-    }
-
-    public Jogo pesquisarJogoPorID(int id) {
-        Optional<Jogo> jogoId = jogoRepository.findById(id);
-
-        if (jogoId.isEmpty()) {
-            throw new JogoNaoEncontradoException("Este Id de Jogo é inválido,jogo não foi encontrado");
-        }
-
-        return jogoId.get();
-    }
-
-    public Usuario checkinUsuario(String email, int id) {
-        Jogo jogo = pesquisarJogoPorID(id);
-        jogoService.verificarData(jogo);
-        var pontosCheckin = 5;
-
-        Usuario usuarioAtualizado = buscarUsuarioId(email);
-        usuarioAtualizado.setPontos(usuarioAtualizado.getPontos() + pontosCheckin);
-        usuarioRepository.save(usuarioAtualizado);
-
-        return usuarioAtualizado;
-    }
-
     public Usuario buscarUsuarioId(String email) {
         Optional<Usuario> usuarioBuscar = usuarioRepository.findById(email);
 
@@ -80,18 +46,34 @@ public class UsuarioService {
         return usuarioBuscar.get();
     }
 
+    public Usuario checkinUsuario(String email, int id) {
+        Jogo jogo = jogoService.pesquisarJogoPorID(id);
+        jogoService.verificarData(jogo);
+        var pontosCheckin = 5;
+
+        Usuario usuarioAtualizado = buscarUsuarioId(email);
+        usuarioAtualizado.setPontos(usuarioAtualizado.getPontos() + pontosCheckin);
+        usuarioRepository.save(usuarioAtualizado);
+
+        return usuarioAtualizado;
+    }
+
     public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem) {
-        Jogo jogo = pesquisarJogoPorID(id);
+        Jogo jogo = jogoService.pesquisarJogoPorID(id);
         Usuario usuario = buscarUsuarioId(email);
         jogoService.verificarData(jogo);
 
         for (Vantagem referencia : jogo.getVantagens()) {
             if (vantagem.getBeneficio().equals(referencia.getBeneficio())) {
+
                 referencia.setDataValidade(jogo.getDataDoJogo().plusDays(1));
                 usuario.getVantagensAdquiridas().add(referencia);
-                if (usuario.getPontos()>= referencia.getPontos()){
-                usuario.setPontos(usuario.getPontos() - referencia.getPontos());
-                }else {
+
+                if (usuario.getPontos() >= referencia.getPontos()) {
+
+                    usuario.setPontos(usuario.getPontos() - referencia.getPontos());
+
+                } else {
                     throw new PontosInsuficientesException("Pontos insuficientes para troca!");
                 }
             }
