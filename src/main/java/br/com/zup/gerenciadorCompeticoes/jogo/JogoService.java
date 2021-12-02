@@ -93,4 +93,10 @@ public class JogoService {
         return jogo;
     }
 
+    public void verificarCodigoJogo(Jogo jogo, String codigoValidacao){
+        if (!jogo.getCodigoValidacao().equals(codigoValidacao)){
+            throw new CodigoInvalidoException("Código de validação incorreto!");
+        }
+    }
+
 }
