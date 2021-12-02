@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +14,6 @@ public class Vantagem {
     private String beneficio;
     @Column(nullable = false)
     private int pontos;
-    private LocalDateTime dataValidade;
 
 
     public Vantagem() {
@@ -37,25 +35,18 @@ public class Vantagem {
         this.pontos = pontos;
     }
 
-    public LocalDateTime getDataValidade() {
-        return dataValidade;
-    }
-
-    public void setDataValidade(LocalDateTime dataValidade) {
-        this.dataValidade = dataValidade;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vantagem vantagem = (Vantagem) o;
-        return pontos == vantagem.pontos && Objects.equals(beneficio, vantagem.beneficio) && Objects.equals(dataValidade, vantagem.dataValidade);
+        return pontos == vantagem.pontos && Objects.equals(beneficio, vantagem.beneficio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(beneficio, pontos, dataValidade);
+        return Objects.hash(beneficio, pontos);
     }
 
 }

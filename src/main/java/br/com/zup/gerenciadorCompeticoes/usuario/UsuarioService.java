@@ -47,8 +47,8 @@ public class UsuarioService {
         return usuario.get();
     }
 
-    public Usuario checkinUsuario(String email, int id,  String codigoValidacao) {
-        jogoService.validarJogo(id,codigoValidacao);
+    public Usuario checkinUsuario(String email, int id, String codigoValidacao) {
+        jogoService.validarJogo(id, codigoValidacao);
         var pontosCheckin = 5;
 
         Usuario usuarioAtualizado = buscarUsuarioId(email);
@@ -59,7 +59,7 @@ public class UsuarioService {
     }
 
     public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem, String codigoValidacao) {
-        Jogo jogo = jogoService.validarJogo(id,codigoValidacao);
+        Jogo jogo = jogoService.validarJogo(id, codigoValidacao);
         Usuario usuario = buscarUsuarioId(email);
 
         for (Vantagem referencia : jogo.getVantagens()) {
@@ -68,7 +68,7 @@ public class UsuarioService {
                 if (usuario.getPontos() >= referencia.getPontos()) {
                     usuario.setPontos(usuario.getPontos() - referencia.getPontos());
                     Voucher voucher = new Voucher(UUID.randomUUID().toString(),
-                            referencia.getBeneficio(),jogo.getDataDoJogo().plusDays(1));
+                            referencia.getBeneficio(), jogo.getDataDoJogo().plusDays(1));
                     usuario.getVouchers().add(voucher);
                 } else {
                     throw new PontosInsuficientesException("Pontos insuficientes para troca!");

@@ -29,8 +29,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/{email}")
-    public ExibirUsuarioDetalhadoDTO exibirDadosUsuario(@PathVariable String email){
-        return modelMapper.map(usuarioService.buscarUsuarioId(email),ExibirUsuarioDetalhadoDTO.class);
+    public ExibirUsuarioDetalhadoDTO exibirDadosUsuario(@PathVariable String email) {
+        return modelMapper.map(usuarioService.buscarUsuarioId(email), ExibirUsuarioDetalhadoDTO.class);
     }
 
     @PutMapping
@@ -45,9 +45,8 @@ public class UsuarioController {
     public ExibirTrocaVantagemUsuarioDTO realizarTrocaVantagens(@PathVariable int id,
                                                                 @RequestBody TrocaVantagemUsuarioDTO trocaSolicitada) {
         Usuario usuario = usuarioService.atualizarTrocaVantagens(id, trocaSolicitada.getEmail(),
-                trocaSolicitada.getVantagem(),trocaSolicitada.getCodigoValidacao());
+                trocaSolicitada.getVantagem(), trocaSolicitada.getCodigoValidacao());
 
         return modelMapper.map(usuario, ExibirTrocaVantagemUsuarioDTO.class);
     }
-
 }

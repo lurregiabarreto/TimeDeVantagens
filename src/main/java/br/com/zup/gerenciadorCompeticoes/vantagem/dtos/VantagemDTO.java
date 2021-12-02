@@ -1,10 +1,8 @@
 package br.com.zup.gerenciadorCompeticoes.vantagem.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
 
 public class VantagemDTO {
 
@@ -14,8 +12,6 @@ public class VantagemDTO {
     @NotNull(message = "Pontos é obrigatório")
     @Range(min = 5, max = 350)
     private int pontos;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime dataValidade;
 
 
     public VantagemDTO() {
@@ -36,14 +32,6 @@ public class VantagemDTO {
 
     public void setPontos(int pontos) {
         this.pontos = pontos;
-    }
-
-    public LocalDateTime getDataValidade() {
-        return dataValidade;
-    }
-
-    public void setDataValidade(LocalDateTime dataValidade) {
-        this.dataValidade = dataValidade;
     }
 
 }

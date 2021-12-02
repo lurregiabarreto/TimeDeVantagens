@@ -26,50 +26,40 @@ public class ControllerAdvisor {
         return errosValidacao;
     }
 
-
     @ExceptionHandler(CodigoInvalidoException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public MensagemErro manipularCodigoInvalido(CodigoInvalidoException exception) {
         return new MensagemErro(exception.getMessage());
     }
 
-
     @ExceptionHandler(DataPosteriorException.class)
-    @ResponseStatus()
-    public MensagemErro manipularDataPosterior (DataPosteriorException exception) {
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro manipularDataPosterior(DataPosteriorException exception) {
         return new MensagemErro(exception.getMessage());
     }
-
 
     @ExceptionHandler(EmailJaCadastradoException.class)
-    @ResponseStatus()
-    public MensagemErro manipularEmailJaCadastrado (EmailJaCadastradoException exception) {
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro manipularEmailJaCadastrado(EmailJaCadastradoException exception) {
         return new MensagemErro(exception.getMessage());
     }
-
 
     @ExceptionHandler(JogoNaoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemErro manipularJogoNaoEncontrado (JogoNaoEncontradoException exception) {
+    public MensagemErro manipularJogoNaoEncontrado(JogoNaoEncontradoException exception) {
         return new MensagemErro(exception.getMessage());
     }
-
 
     @ExceptionHandler(PontosInsuficientesException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public MensagemErro manipularPontosInsuficientes (PontosInsuficientesException exception) {
+    public MensagemErro manipularPontosInsuficientes(PontosInsuficientesException exception) {
         return new MensagemErro(exception.getMessage());
     }
-
-
 
     @ExceptionHandler(UsuarioNaoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemErro manipularUsuarioNaoEncontrado (UsuarioNaoEncontradoException exception) {
+    public MensagemErro manipularUsuarioNaoEncontrado(UsuarioNaoEncontradoException exception) {
         return new MensagemErro(exception.getMessage());
     }
-
-
-
 
 }

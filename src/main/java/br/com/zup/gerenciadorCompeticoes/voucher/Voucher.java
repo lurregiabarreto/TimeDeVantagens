@@ -16,6 +16,7 @@ public class Voucher {
     @Column(nullable = false)
     private LocalDateTime dataValidade;
 
+
     public Voucher() {
     }
 
