@@ -26,12 +26,15 @@ public class JogoService {
 
 
     public Jogo salvarJogo(Jogo jogoRecebido) {
+        atualizarDadosParaSalvar(jogoRecebido);
+        return jogoRepository.save(jogoRecebido);
+    }
+
+    public void atualizarDadosParaSalvar(Jogo jogoRecebido){
         verificarData(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         jogoRecebido.setEndereco(atualizarEndereco(jogoRecebido.getEndereco()));
-
-        return jogoRepository.save(jogoRecebido);
     }
 
     public Set<Vantagem> atualizarVantagens(Set<Vantagem> vantagensCadastradas) {
