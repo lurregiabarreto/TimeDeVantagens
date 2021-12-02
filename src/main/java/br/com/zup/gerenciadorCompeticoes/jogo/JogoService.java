@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class JogoService {
@@ -24,7 +21,7 @@ public class JogoService {
 
     public Jogo salvarJogo(Jogo jogoRecebido) {
         verificarData(jogoRecebido);
-        jogoRecebido.setDataDeCadastro(LocalDateTime.now());
+        jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
 
         return jogoRepository.save(jogoRecebido);
