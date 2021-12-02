@@ -62,4 +62,10 @@ public class ControllerAdvisor {
         return new MensagemErro(exception.getMessage());
     }
 
+    @ExceptionHandler(JogoJaCadastradoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro manipularJogoJaCadastrado(JogoJaCadastradoException exception) {
+        return new MensagemErro(exception.getMessage());
+    }
+
 }
