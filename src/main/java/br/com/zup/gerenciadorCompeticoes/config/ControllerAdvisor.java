@@ -3,6 +3,7 @@ package br.com.zup.gerenciadorCompeticoes.config;
 import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
+import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -46,6 +47,13 @@ public class ControllerAdvisor {
     @ExceptionHandler(EmailJaCadastradoException.class)
     @ResponseStatus()
     public MensagemErro manipularEmailJaCadastrado (EmailJaCadastradoException exception) {
+        return new MensagemErro(exception.getMessage());
+    }
+
+
+    @ExceptionHandler(JogoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public MensagemErro manipularJogoNaoEncontrado (JogoNaoEncontradoException exception) {
         return new MensagemErro(exception.getMessage());
     }
 
