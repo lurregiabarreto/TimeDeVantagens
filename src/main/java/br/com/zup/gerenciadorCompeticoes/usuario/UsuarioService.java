@@ -1,6 +1,5 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
-import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.EmailJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.PontosInsuficientesException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.UsuarioNaoEncontradoException;
@@ -49,9 +48,7 @@ public class UsuarioService {
     }
 
     public Usuario checkinUsuario(String email, int id,  String codigoValidacao) {
-        Jogo jogo = jogoService.pesquisarJogoPorID(id);
-        jogoService.verificarData(jogo);
-        verificarCodigo(jogo, codigoValidacao);
+        jogoService.validarJogo(id,codigoValidacao);
         var pontosCheckin = 5;
 
         Usuario usuarioAtualizado = buscarUsuarioId(email);
@@ -62,10 +59,8 @@ public class UsuarioService {
     }
 
     public Usuario atualizarTrocaVantagens(int id, String email, Vantagem vantagem, String codigoValidacao) {
-        Jogo jogo = jogoService.pesquisarJogoPorID(id);
+        Jogo jogo = jogoService.validarJogo(id,codigoValidacao);
         Usuario usuario = buscarUsuarioId(email);
-        jogoService.verificarData(jogo);
-        verificarCodigo(jogo, codigoValidacao);
 
         for (Vantagem referencia : jogo.getVantagens()) {
 
@@ -86,12 +81,6 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
 
         return usuario;
-    }
-
-    public void verificarCodigo(Jogo jogo, String codigoValidacao){
-        if (!jogo.getCodigoValidacao().equals(codigoValidacao)){
-            throw new CodigoInvalidoException("Código de validação incorreto!");
-        }
     }
 
 }

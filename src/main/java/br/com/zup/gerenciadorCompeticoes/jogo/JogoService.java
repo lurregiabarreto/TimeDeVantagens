@@ -2,6 +2,7 @@ package br.com.zup.gerenciadorCompeticoes.jogo;
 
 import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.endereco.EnderecoRepository;
+import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
@@ -25,12 +26,15 @@ public class JogoService {
 
 
     public Jogo salvarJogo(Jogo jogoRecebido) {
+        atualizarDadosParaSalvar(jogoRecebido);
+        return jogoRepository.save(jogoRecebido);
+    }
+
+    public void atualizarDadosParaSalvar(Jogo jogoRecebido){
         verificarData(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         jogoRecebido.setEndereco(atualizarEndereco(jogoRecebido.getEndereco()));
-
-        return jogoRepository.save(jogoRecebido);
     }
 
     public Set<Vantagem> atualizarVantagens(Set<Vantagem> vantagensCadastradas) {
@@ -82,6 +86,20 @@ public class JogoService {
         }
 
         return jogoId.get();
+    }
+
+    public Jogo validarJogo(int id, String codigoValidacao){
+        Jogo jogo = pesquisarJogoPorID(id);
+        verificarData(jogo);
+        verificarCodigoJogo(jogo, codigoValidacao);
+
+        return jogo;
+    }
+
+    public void verificarCodigoJogo(Jogo jogo, String codigoValidacao){
+        if (!jogo.getCodigoValidacao().equals(codigoValidacao)){
+            throw new CodigoInvalidoException("Código de validação incorreto!");
+        }
     }
 
 }
