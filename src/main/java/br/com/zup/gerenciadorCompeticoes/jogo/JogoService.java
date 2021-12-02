@@ -1,10 +1,13 @@
 package br.com.zup.gerenciadorCompeticoes.jogo;
 
+import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
+import br.com.zup.gerenciadorCompeticoes.endereco.EnderecoRepository;
 import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import br.com.zup.gerenciadorCompeticoes.vantagem.VantagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,12 +20,15 @@ public class JogoService {
     JogoRepository jogoRepository;
     @Autowired
     VantagemRepository vantagemRepository;
+    @Autowired
+    EnderecoRepository enderecoRepository;
 
 
     public Jogo salvarJogo(Jogo jogoRecebido) {
         verificarData(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
+        jogoRecebido.setEndereco(atualizarEndereco(jogoRecebido.getEndereco()));
 
         return jogoRepository.save(jogoRecebido);
     }
@@ -39,6 +45,18 @@ public class JogoService {
         }
 
         return vantagensAtualizada;
+    }
+
+    public Endereco atualizarEndereco(Endereco enderecoCadastrado){
+        Endereco endereco = enderecoCadastrado;
+
+        for (Endereco referencia: enderecoRepository.findAll()){
+            if (referencia.getCep().equals(endereco.getCep())){
+                endereco = referencia;
+            }
+        }
+
+        return endereco;
     }
 
     public void verificarData(Jogo jogo) {
