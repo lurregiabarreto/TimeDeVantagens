@@ -48,11 +48,18 @@ public class UsuarioService {
     }
 
     public Usuario checkinUsuario(String email, int id, String codigoValidacao) {
-        jogoService.validarJogo(id, codigoValidacao);
+        Jogo jogo = jogoService.validarJogo(id, codigoValidacao);
         var pontosCheckin = 5;
 
         Usuario usuarioAtualizado = buscarUsuarioId(email);
         usuarioAtualizado.setPontos(usuarioAtualizado.getPontos() + pontosCheckin);
+
+        if (usuarioAtualizado.getTimeCoracao().equals(jogo.getTime1())){
+            usuarioAtualizado.setPontos(usuarioAtualizado.getPontos() + pontosCheckin);
+        }else if (usuarioAtualizado.getTimeCoracao().equals(jogo.getTime2())){
+            usuarioAtualizado.setPontos(usuarioAtualizado.getPontos() + pontosCheckin * 2);
+        }
+
         usuarioRepository.save(usuarioAtualizado);
 
         return usuarioAtualizado;

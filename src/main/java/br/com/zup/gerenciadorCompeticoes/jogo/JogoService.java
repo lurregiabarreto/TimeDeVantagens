@@ -4,6 +4,7 @@ import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.endereco.EnderecoRepository;
 import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
+import br.com.zup.gerenciadorCompeticoes.exceptions.JogoJaCadastradoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import br.com.zup.gerenciadorCompeticoes.vantagem.VantagemRepository;
@@ -31,6 +32,7 @@ public class JogoService {
 
     public void atualizarDadosParaSalvar(Jogo jogoRecebido) {
         verificarData(jogoRecebido);
+        verificarJogoJaCadastrado(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         jogoRecebido.setEndereco(atualizarEndereco(jogoRecebido.getEndereco()));
@@ -67,6 +69,17 @@ public class JogoService {
 
         if (jogo.getDataDoJogo().isBefore(dataAtual)) {
             throw new DataPosteriorException("Data atual posterior a data do jogo");
+        }
+
+    }
+
+    public void verificarJogoJaCadastrado(Jogo jogo){
+
+        for (Jogo referencia:jogoRepository.findAll()){
+            if (referencia.getTime1().equals(jogo.getTime1()) && referencia.getTime2().equals(jogo.getTime2())
+                    && referencia.getDataDoJogo().isEqual(jogo.getDataDoJogo())){
+                throw new JogoJaCadastradoException("Jogo já cadastrado!");
+            }
         }
 
     }
