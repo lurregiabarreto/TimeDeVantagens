@@ -1,7 +1,7 @@
 package br.com.zup.gerenciadorCompeticoes.usuario;
 
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
-import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
+import br.com.zup.gerenciadorCompeticoes.voucher.Voucher;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,8 +16,8 @@ public class Usuario {
     private String nomeUsuario;
     private Time timeCoracao;
     private int pontos;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Vantagem> vantagensAdquiridas;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Voucher> vouchers;
 
 
     public Usuario() {
@@ -56,12 +56,12 @@ public class Usuario {
         this.pontos = pontos;
     }
 
-    public List<Vantagem> getVantagensAdquiridas() {
-        return vantagensAdquiridas;
+    public List<Voucher> getVouchers() {
+        return vouchers;
     }
 
-    public void setVantagensAdquiridas(List<Vantagem> vantagensAdquiridas) {
-        this.vantagensAdquiridas = vantagensAdquiridas;
+    public void setVouchers(List<Voucher> vouchers) {
+        this.vouchers = vouchers;
     }
 
 }
