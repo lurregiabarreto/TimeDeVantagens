@@ -2,6 +2,7 @@ package br.com.zup.gerenciadorCompeticoes.jogo;
 
 import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.endereco.EnderecoRepository;
+import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
 import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
@@ -82,6 +83,14 @@ public class JogoService {
         }
 
         return jogoId.get();
+    }
+
+    public Jogo validarJogo(int id, String codigoValidacao){
+        Jogo jogo = pesquisarJogoPorID(id);
+        verificarData(jogo);
+        verificarCodigoJogo(jogo, codigoValidacao);
+
+        return jogo;
     }
 
 }
