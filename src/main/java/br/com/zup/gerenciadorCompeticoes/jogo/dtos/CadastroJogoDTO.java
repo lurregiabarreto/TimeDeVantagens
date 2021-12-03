@@ -1,5 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.jogo.dtos;
 
+import br.com.zup.gerenciadorCompeticoes.adm.dtos.AdmDTO;
 import br.com.zup.gerenciadorCompeticoes.endereco.dtos.EnderecoDTO;
 import br.com.zup.gerenciadorCompeticoes.enuns.Time;
 import br.com.zup.gerenciadorCompeticoes.vantagem.dtos.VantagemDTO;
@@ -12,6 +13,8 @@ import java.util.Set;
 
 public class CadastroJogoDTO {
 
+    @NotNull(message = "Dados do administrador é obrigatório")
+    private AdmDTO adm;
     @NotNull(message = "Time é obrigatório")
     private Time time1;
     @NotNull(message = "Time é obrigatório")
@@ -28,6 +31,14 @@ public class CadastroJogoDTO {
     public CadastroJogoDTO() {
     }
 
+
+    public AdmDTO getAdm() {
+        return adm;
+    }
+
+    public void setAdm(AdmDTO adm) {
+        this.adm = adm;
+    }
 
     public Time getTime1() {
         return time1;
