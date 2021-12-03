@@ -1,11 +1,10 @@
 package br.com.zup.gerenciadorCompeticoes.jogo;
 
+import br.com.zup.gerenciadorCompeticoes.adm.AdmRepository;
+import br.com.zup.gerenciadorCompeticoes.adm.Administrador;
 import br.com.zup.gerenciadorCompeticoes.endereco.Endereco;
 import br.com.zup.gerenciadorCompeticoes.endereco.EnderecoRepository;
-import br.com.zup.gerenciadorCompeticoes.exceptions.CodigoInvalidoException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.DataPosteriorException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.JogoJaCadastradoException;
-import br.com.zup.gerenciadorCompeticoes.exceptions.JogoNaoEncontradoException;
+import br.com.zup.gerenciadorCompeticoes.exceptions.*;
 import br.com.zup.gerenciadorCompeticoes.vantagem.Vantagem;
 import br.com.zup.gerenciadorCompeticoes.vantagem.VantagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +16,44 @@ import java.util.*;
 @Service
 public class JogoService {
 
-    @Autowired
     JogoRepository jogoRepository;
-    @Autowired
     VantagemRepository vantagemRepository;
-    @Autowired
     EnderecoRepository enderecoRepository;
+    AdmRepository admRepository;
 
+    @Autowired
+    public JogoService(JogoRepository jogoRepository, VantagemRepository vantagemRepository,
+                       EnderecoRepository enderecoRepository, AdmRepository admRepository) {
+        this.jogoRepository = jogoRepository;
+        this.vantagemRepository = vantagemRepository;
+        this.enderecoRepository = enderecoRepository;
+        this.admRepository = admRepository;
+    }
 
-    public Jogo salvarJogo(Jogo jogoRecebido) {
-        atualizarDadosParaSalvar(jogoRecebido);
+    public Jogo salvarJogo(Jogo jogoRecebido, Administrador adm) {
+        atualizarDadosParaSalvar(jogoRecebido, adm);
         return jogoRepository.save(jogoRecebido);
     }
 
-    public void atualizarDadosParaSalvar(Jogo jogoRecebido) {
+    public void atualizarDadosParaSalvar(Jogo jogoRecebido, Administrador administrador) {
+        autenticarAdm(administrador);
         verificarData(jogoRecebido);
         verificarJogoJaCadastrado(jogoRecebido);
         jogoRecebido.setCodigoValidacao(UUID.randomUUID().toString());
         jogoRecebido.setVantagens(atualizarVantagens(jogoRecebido.getVantagens()));
         jogoRecebido.setEndereco(atualizarEndereco(jogoRecebido.getEndereco()));
+    }
+
+    public void autenticarAdm(Administrador adm) {
+        for (Administrador referencia : admRepository.findAll()) {
+            if (referencia.getLogin().equals(adm.getLogin())) {
+                if (!referencia.getSenha().equals(adm.getSenha())) {
+                    throw new AdmInvalidoException("Administrador inválido.");
+                }
+            } else {
+                throw new AdmInvalidoException("Administrador inválido.");
+            }
+        }
     }
 
     public Set<Vantagem> atualizarVantagens(Set<Vantagem> vantagensCadastradas) {
@@ -73,11 +91,11 @@ public class JogoService {
 
     }
 
-    public void verificarJogoJaCadastrado(Jogo jogo){
+    public void verificarJogoJaCadastrado(Jogo jogo) {
 
-        for (Jogo referencia:jogoRepository.findAll()){
+        for (Jogo referencia : jogoRepository.findAll()) {
             if (referencia.getTime1().equals(jogo.getTime1()) && referencia.getTime2().equals(jogo.getTime2())
-                    && referencia.getDataDoJogo().isEqual(jogo.getDataDoJogo())){
+                    && referencia.getDataDoJogo().isEqual(jogo.getDataDoJogo())) {
                 throw new JogoJaCadastradoException("Jogo já cadastrado!");
             }
         }
