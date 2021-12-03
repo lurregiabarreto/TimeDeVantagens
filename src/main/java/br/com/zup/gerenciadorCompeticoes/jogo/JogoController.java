@@ -1,5 +1,6 @@
 package br.com.zup.gerenciadorCompeticoes.jogo;
 
+import br.com.zup.gerenciadorCompeticoes.adm.Administrador;
 import br.com.zup.gerenciadorCompeticoes.jogo.dtos.CadastroJogoDTO;
 import br.com.zup.gerenciadorCompeticoes.jogo.dtos.ExibirDetalheJogoDTO;
 import org.modelmapper.ModelMapper;
@@ -24,7 +25,8 @@ public class JogoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExibirDetalheJogoDTO cadastrarJogo(@RequestBody @Valid CadastroJogoDTO cadastroRecebido) {
-        Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido, Jogo.class));
+        Administrador adm = modelMapper.map(cadastroRecebido.getAdm(), Administrador.class);
+        Jogo jogo = jogoService.salvarJogo(modelMapper.map(cadastroRecebido, Jogo.class), adm);
 
         return modelMapper.map(jogo, ExibirDetalheJogoDTO.class);
     }
