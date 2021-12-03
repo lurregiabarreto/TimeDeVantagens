@@ -68,4 +68,10 @@ public class ControllerAdvisor {
         return new MensagemErro(exception.getMessage());
     }
 
+    @ExceptionHandler(AdmInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public MensagemErro manipularAdministradorInvalido(AdmInvalidoException exception) {
+        return new MensagemErro(exception.getMessage());
+    }
+
 }
