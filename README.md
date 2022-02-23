@@ -9,8 +9,8 @@ Requisições:
 ### POST /usuario
 ````json
 {
-  "email" :"jey@zup.com",
-  "nomeUsuario" : "Jeyciane Faria",
+  "email" :"lurregia@zup.com",
+  "nomeUsuario" : "Lurregia Barreto",
   "timeCoracao" : "ATLETICO_MG"
 }
 
@@ -20,8 +20,8 @@ Requisições:
 - Status 201
 ````json
 {
-  "email": "jey@zup.com",
-  "nomeUsuario": "Jeyciane Faria",
+  "email": "lurregia@zup.com",
+  "nomeUsuario": "Lurregia Barreto",
   "timeCoracao": "CORINTHIANS",
   "pontos": 0
 }
@@ -116,8 +116,8 @@ Requisições:
 - Status 200
 ````json
 {
-  "email": "jey@zup.com",
-  "nomeUsuario": "Jeyciane Faria",
+  "email": "lurregia@zup.com",
+  "nomeUsuario": "Lurregia Barreto",
   "timeCoracao": "CORINTHIANS",
   "pontos": 0,
   "vouchers": []
@@ -223,7 +223,7 @@ Requisições:
 ### PUT /usuario
 ````json
 {
-  "email":"jey@zup.com",
+  "email":"lurregia@zup.com",
   "id":3,
   "codigoValidacao": "0cc8d177-d0cb-4934-8903-0c633fa42bca"
 }
@@ -233,8 +233,8 @@ Requisições:
 - Status 200
 ````json
 {
-  "email": "jey@zup.com",
-  "nomeUsuario": "Jeyciane Faria",
+  "email": "lurregia@zup.com",
+  "nomeUsuario": "Lurregia Barreto",
   "timeCoracao": "CORINTHIANS",
   "pontos": 30
 }
@@ -246,7 +246,7 @@ Requisições:
 ### PUT /usuario/IdJogo
 ````json
 {
-  "email": "jey@zup.com",
+  "email": "lurregia@zup.com",
   "codigoValidacao": "d3b21cb6-5729-484a-a2cb-4fc7ffeed33a",
   "vantagem":
   {
@@ -260,7 +260,7 @@ Requisições:
 - Status 200
 ````json
 {
-  "email": "jey@zup.com",
+  "email": "lurregia@zup.com",
   "pontos": 20,
   "vouchers": [
     {
